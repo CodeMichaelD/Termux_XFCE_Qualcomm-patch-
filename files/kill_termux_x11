@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if Apt, dpkg, or Nala is running in Termux or Proot
-if pgrep -f 'apt|apt-get|dpkg|nala'; then
+if pgrep -f 'apt|apt-get|dpkg'; then
   zenity --info --text="Software is currently installing in Termux or Proot. Please wait for this processes to finish before continuing."
   exit 1
 fi
