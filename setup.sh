@@ -39,7 +39,7 @@ setup_proot() {
 proot-distro install debian
 proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt update
 proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt upgrade -y
-proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt install sudo wget nala=0.14.0 jq flameshot conky-all libvulkan1 glmark2 -y
+proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt install sudo wget jq flameshot conky-all libvulkan1 glmark2 -y
 
 #Install DRI3 patched driver
 wget https://github.com/bengkelgawai/Termux_XFCE/raw/main/mesa-vulkan-kgsl_23.3.0-ubuntu_arm64.deb
@@ -69,7 +69,7 @@ echo "
 alias virgl='GALLIUM_DRIVER=zink '
 alias ls='eza -lF --icons'
 alias cat='bat '
-alias apt='sudo nala=0.14.0 '
+
 alias start='echo "please run from termux, not debian proot."'
 " >> $HOME/../usr/var/lib/proot-distro/installed-rootfs/debian/home/$username/.bashrc
 
@@ -81,7 +81,7 @@ proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 cp /usr/share/zoneinf
 
 setup_xfce() {
 #Install xfce4 desktop and additional packages
-pkg install git neofetch mesa-zink virglrenderer-mesa-zink vulkan-loader-android glmark2 papirus-icon-theme xfce4 xfce4-goodies pavucontrol-qt eza bat jq nala=0.14.0 wmctrl firefox netcat-openbsd -y
+pkg install git neofetch mesa-zink virglrenderer-mesa-zink vulkan-loader-android glmark2 papirus-icon-theme xfce4 xfce4-goodies pavucontrol-qt eza bat jq wmctrl firefox netcat-openbsd -y
 
 #Create .bashrc
 cp $HOME/../usr/var/lib/proot-distro/installed-rootfs/debian/etc/skel/.bashrc $HOME/.bashrc
@@ -100,7 +100,7 @@ echo "
 alias debian='proot-distro login debian --user $username --shared-tmp'
 alias ls='eza -lF --icons'
 alias cat='bat '
-alias apt='pkg upgrade -y && nala=0.14.0 $@'
+alias apt='pkg upgrade -y$@'
 " >> $HOME/.bashrc
 
 wget https://github.com/bengkelgawai/Termux_XFCE/raw/main/ascii-image-converter
@@ -261,7 +261,7 @@ cat <<'EOF' > $HOME/../usr/bin/kill_termux_x11
 #!/bin/bash
 
 # Check if Apt, dpkg, or Nala is running in Termux or Proot
-if pgrep -f 'apt|apt-get|dpkg|nala'; then
+if pgrep -f 'apt|apt-get|dpkg'; then
   zenity --info --text="Software is currently installing in Termux or Proot. Please wait for this processes to finish before continuing."
   exit 1
 fi
