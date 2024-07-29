@@ -39,7 +39,7 @@ setup_proot() {
 proot-distro install debian
 proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt update
 proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt upgrade -y
-proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt install sudo wget nala jq flameshot conky-all libvulkan1 glmark2 -y
+proot-distro login debian --shared-tmp -- env DISPLAY=:1.0 apt install sudo wget nala=0.14.0 jq flameshot conky-all libvulkan1 glmark2 -y
 
 #Install DRI3 patched driver
 wget https://github.com/bengkelgawai/Termux_XFCE/raw/main/mesa-vulkan-kgsl_23.3.0-ubuntu_arm64.deb
@@ -69,7 +69,7 @@ echo "
 alias virgl='GALLIUM_DRIVER=zink '
 alias ls='eza -lF --icons'
 alias cat='bat '
-alias apt='sudo nala '
+alias apt='sudo nala=0.14.0 '
 alias start='echo "please run from termux, not debian proot."'
 " >> $HOME/../usr/var/lib/proot-distro/installed-rootfs/debian/home/$username/.bashrc
 
@@ -100,7 +100,7 @@ echo "
 alias debian='proot-distro login debian --user $username --shared-tmp'
 alias ls='eza -lF --icons'
 alias cat='bat '
-alias apt='pkg upgrade -y && nala $@'
+alias apt='pkg upgrade -y && nala=0.14.0 $@'
 " >> $HOME/.bashrc
 
 wget https://github.com/bengkelgawai/Termux_XFCE/raw/main/ascii-image-converter
